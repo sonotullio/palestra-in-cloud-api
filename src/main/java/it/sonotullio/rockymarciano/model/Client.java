@@ -5,6 +5,7 @@ import lombok.Data;
 import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
+import java.sql.Blob;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -13,9 +14,9 @@ import java.util.List;
 @Entity
 public class Client {
 
-    @Id @GeneratedValue(generator="system-uuid")
-    @GenericGenerator(name="system-uuid", strategy = "uuid")
-    private String id;
+    @Id
+    @GeneratedValue(strategy=GenerationType.AUTO)
+    private int id;
 
     private String email;
 
@@ -37,6 +38,9 @@ public class Client {
 
     private Date certificateExpirationDate;
 
+    @Column @Lob
+    private Blob img;
+
     @OrderBy("toDate ASC")
     @OneToMany(mappedBy="client", cascade = CascadeType.ALL)
     @JsonIgnore
@@ -44,6 +48,10 @@ public class Client {
 
     public Date getExpirationDate() {
         return this.subscriptions.isEmpty() ? null : getSubscriptions().get(getSubscriptions().size() - 1).getToDate();
+    }
+
+    public String getSport() {
+        return this.subscriptions.isEmpty() ? null : getSubscriptions().get(getSubscriptions().size() - 1).getSport().getName();
     }
 
 }
