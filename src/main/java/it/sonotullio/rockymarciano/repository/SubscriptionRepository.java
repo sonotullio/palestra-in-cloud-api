@@ -9,5 +9,5 @@ import java.util.List;
 @Repository
 public interface SubscriptionRepository extends CrudRepository<Subscription, String> {
 
-    List<Subscription> findAllByClientId(String clientId);
+    List<Subscription> findAllByClientId(int clientId);
 }

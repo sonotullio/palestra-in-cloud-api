@@ -2,10 +2,8 @@ package it.sonotullio.rockymarciano.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Data;
-import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
-import java.sql.Blob;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -38,8 +36,8 @@ public class Client {
 
     private Date certificateExpirationDate;
 
-    @Column @Lob
-    private Blob img;
+    @Lob
+    private byte[] img;
 
     @OrderBy("toDate ASC")
     @OneToMany(mappedBy="client", cascade = CascadeType.ALL)

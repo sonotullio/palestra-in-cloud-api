@@ -22,7 +22,7 @@ public class SubscriptionController {
     }
 
     @GetMapping("/{id}")
-    public Subscription find(@PathVariable String id, Optional<String> clientId) throws Exception {
+    public Subscription find(@PathVariable String id, Optional<Integer> clientId) throws Exception {
 
         Optional<Subscription> subscription = subscriptionRepository.findById(id);
 
@@ -34,7 +34,7 @@ public class SubscriptionController {
     }
 
     @GetMapping("/client/{clientId}")
-    public Subscription findByClientId(@PathVariable String clientId) throws Exception {
+    public Subscription findByClientId(@PathVariable int clientId) {
         List<Subscription> subscriptions = subscriptionRepository.findAllByClientId(clientId);
         return subscriptions.isEmpty() ? null: subscriptions.get(subscriptions.size() -1);
     }
