@@ -25,7 +25,7 @@ public class ClientController {
     }
 
     @PostMapping(value = "/image/{id}")
-    public void saveImage(@RequestBody MultipartFile image, @PathVariable int id) throws IOException, SQLException {
+    public void saveImage(@RequestBody MultipartFile image, @PathVariable int id) throws IOException {
         Optional<Client> client = clientRepository.findById(id);
 
         client.get().setImg(image.getBytes());

@@ -1,5 +1,6 @@
 package it.sonotullio.rockymarciano.model;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Data;
 
@@ -34,6 +35,8 @@ public class Client {
 
     private String note;
 
+    @Temporal(TemporalType.DATE)
+    @JsonFormat(shape=JsonFormat.Shape.STRING, pattern="yyyy-MM-dd", timezone = "UTC")
     private Date certificateExpirationDate;
 
     @Lob
@@ -44,6 +47,7 @@ public class Client {
     @JsonIgnore
     private List<Subscription> subscriptions = new ArrayList<>();
 
+    @JsonFormat(shape=JsonFormat.Shape.STRING, pattern="yyyy-MM-dd", timezone = "UTC")
     public Date getExpirationDate() {
         return this.subscriptions.isEmpty() ? null : getSubscriptions().get(getSubscriptions().size() - 1).getToDate();
     }
