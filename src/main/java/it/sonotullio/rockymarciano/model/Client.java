@@ -27,8 +27,6 @@ public class Client {
 
     private String phone;
 
-    private String sport;
-
     private String dateOfBirth;
 
     private String birthPlace;
