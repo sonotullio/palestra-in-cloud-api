@@ -17,4 +17,6 @@ public class Sport {
 
     private String name;
     private Double price;
+    private int maxEntrance;
+    private String description;
 }
