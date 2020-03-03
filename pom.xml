@@ -9,10 +9,10 @@
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>it.sonotullio</groupId>
-	<artifactId>rocky-marciano</artifactId>
+	<artifactId>palestra-in-cloud-api</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<name>rocky-marciano</name>
-	<description>Gestionale</description>
+	<name>palestra-in-cloud-api</name>
+	<description>Fitness Management API</description>
 
 	<properties>
 		<java.version>1.8</java.version>
