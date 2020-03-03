@@ -34,8 +34,8 @@ public class SubscriptionController {
     }
 
     @GetMapping("/client/{clientId}")
-    public Subscription findByClientId(@PathVariable int clientId) {
-        List<Subscription> subscriptions = subscriptionRepository.findAllByClientId(clientId);
-        return subscriptions.isEmpty() ? null: subscriptions.get(subscriptions.size() -1);
+    public List<Subscription> findByClientId(@PathVariable int clientId) {
+        return subscriptionRepository.findAllByClientId(clientId);
     }
+
 }

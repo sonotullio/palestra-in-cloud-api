@@ -9,14 +9,13 @@ import javax.persistence.Id;
 
 @Data
 @Entity
-public class Sport {
+public class Sport extends Product {
 
-    @Id @GeneratedValue(generator="system-uuid")
-    @GenericGenerator(name="system-uuid", strategy = "uuid")
-    private String id;
-
-    private String name;
-    private Double price;
     private int maxEntrance;
-    private String description;
+    private int duration;
+
+    @Override
+    public String getType() {
+        return Product.SPORT;
+    }
 }

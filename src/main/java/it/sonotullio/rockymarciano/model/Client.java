@@ -79,8 +79,8 @@ public class Client {
         return Month.of(this.getCertificateExpirationDate().getMonth()).getDisplayName(TextStyle.SHORT, Locale.ITALY) + " " + (1900 + this.getCertificateExpirationDate().getYear());
     }
 
-    public String getSport() {
-        return this.subscriptions.isEmpty() ? null : getSubscriptions().get(getSubscriptions().size() - 1).getSport().getName();
-    }
+//    public String getSport() {
+//        return this.subscriptions.isEmpty() ? null : getSubscriptions().get(getSubscriptions().size() - 1).getSport().getName();
+//    }
 
 }
