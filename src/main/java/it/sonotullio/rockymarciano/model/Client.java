@@ -3,15 +3,13 @@ package it.sonotullio.rockymarciano.model;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Data;
+import org.apache.commons.lang3.time.DateUtils;
 
 import javax.persistence.*;
-import java.time.Month;
-import java.time.Year;
-import java.time.format.TextStyle;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Date;
 import java.util.List;
-import java.util.Locale;
 
 @Data
 @Entity
@@ -31,22 +29,27 @@ public class Client {
 
     private String phone;
 
-    private String dateOfBirth;
+    @Temporal(TemporalType.DATE)
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd", timezone = "UTC")
+    private Date dateOfBirth;
 
     private String birthPlace;
+
+    private String gender;
 
     private String note;
 
     @Temporal(TemporalType.DATE)
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd", timezone = "UTC")
     private Date certificateExpirationDate;
 
     @Lob
     private byte[] img;
 
     @JsonIgnore
-    @OrderBy("toDate ASC")
+    @OrderBy("date ASC")
     @OneToMany(mappedBy="client", cascade = CascadeType.ALL)
-    private List<Subscription> subscriptions = new ArrayList<>();
+    private List<Purchase> purchases = new ArrayList<>();
 
     @JsonIgnore
     @OrderBy("date ASC")
@@ -54,33 +57,32 @@ public class Client {
     private List<Entrance> entrances = new ArrayList<>();
 
     public Date getExpirationDate() {
-        return this.subscriptions.isEmpty() ? null : getSubscriptions().get(getSubscriptions().size() - 1).getToDate();
-    }
-
-    public String getExDate() {
-        return this.getExpirationDate() != null ? new Integer(this.getExpirationDate().getDate()).toString() : "";
-    }
-
-    public String getExCertificateDate() {
-        return this.getCertificateExpirationDate() != null ? new Integer(this.getCertificateExpirationDate().getDate()).toString() : "";
-    }
-
-    public String getExMonthAndYear() {
-        if (this.getExpirationDate() == null) {
-            return "";
+        List<Purchase> purchases = getPurchases();
+        if (purchases.isEmpty()) {
+            return null;
+        } else {
+            Collections.reverse(purchases);
+            for (Purchase purchase: purchases) {
+                if (purchase.getProduct() instanceof Sport) {
+                    return DateUtils.addMonths(purchase.getDate(), ((Sport) purchase.getProduct()).getDuration());
+                }
+            }
+            return null;
         }
-        return Month.of(this.getExpirationDate().getMonth()).getDisplayName(TextStyle.SHORT, Locale.ITALY) + " " + (1900 + this.getExpirationDate().getYear());
     }
 
-    public String getExCertificateMonthAndYear() {
-        if (this.getCertificateExpirationDate() == null) {
-            return "";
-        }
-        return Month.of(this.getCertificateExpirationDate().getMonth()).getDisplayName(TextStyle.SHORT, Locale.ITALY) + " " + (1900 + this.getCertificateExpirationDate().getYear());
+    public boolean getExpired() {
+        return getExpirationDate() == null ? Boolean.TRUE : new Date().after(getExpirationDate());
     }
 
-//    public String getSport() {
-//        return this.subscriptions.isEmpty() ? null : getSubscriptions().get(getSubscriptions().size() - 1).getSport().getName();
-//    }
+    public boolean getExpiredCertificate() {
+        return getCertificateExpirationDate() == null ? Boolean.TRUE : new Date().after(getCertificateExpirationDate());
+    }
+
+    public int getAge() {
+        Date now = new Date();
+        long ageTime = now.getTime() - getDateOfBirth().getTime();
+        return (int) (ageTime / 3.154e+10);
+    }
 
 }

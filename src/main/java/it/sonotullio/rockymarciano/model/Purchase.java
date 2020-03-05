@@ -1,5 +1,6 @@
 package it.sonotullio.rockymarciano.model;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Data;
 import org.hibernate.annotations.GenericGenerator;
 
@@ -8,21 +9,22 @@ import java.util.Date;
 
 @Data
 @Entity
-public class Entrance {
+public class Purchase {
 
-    @Id
-    @GeneratedValue(generator="system-uuid")
+    @Id @GeneratedValue(generator="system-uuid")
     @GenericGenerator(name="system-uuid", strategy = "uuid")
     private String id;
 
     @Temporal(TemporalType.DATE)
+    @JsonFormat(shape=JsonFormat.Shape.STRING, pattern="yyyy-MM-dd", timezone = "UTC")
     private Date date;
 
     @ManyToOne
     private Client client;
 
     @ManyToOne
-    private Sport sport;
+    private Product product;
 
-    private boolean deleted;
+    private boolean paid;
+
 }

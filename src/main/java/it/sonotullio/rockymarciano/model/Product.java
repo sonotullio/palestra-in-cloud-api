@@ -1,11 +1,14 @@
 package it.sonotullio.rockymarciano.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonSubTypes;
 import com.fasterxml.jackson.annotation.JsonTypeInfo;
 import lombok.Data;
 import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 
 @Data
 @Entity
@@ -26,6 +29,11 @@ public abstract class Product {
     private String name;
     private Double price;
     private String description;
+
+    @JsonIgnore
+    @OrderBy("date ASC")
+    @OneToMany(mappedBy="product", cascade = CascadeType.ALL)
+    private List<Purchase> purchases = new ArrayList<>();
 
     public static final String SPORT = "sport";
     public static final String MERCHANDISE = "merchandise";
