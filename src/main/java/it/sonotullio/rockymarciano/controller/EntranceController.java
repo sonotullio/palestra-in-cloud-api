@@ -1,12 +1,13 @@
 package it.sonotullio.rockymarciano.controller;
 
+import it.sonotullio.rockymarciano.model.ChartPoint;
 import it.sonotullio.rockymarciano.model.Entrance;
+import it.sonotullio.rockymarciano.model.Purchase;
 import it.sonotullio.rockymarciano.repository.EntranceRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 
 @CrossOrigin(origins = "*", allowedHeaders = "*")
 @RestController
@@ -43,5 +44,27 @@ public class EntranceController {
             return entranceRepository.findAllByClientId(clientId.get());
         }
         return (List<Entrance>) entranceRepository.findAll();
+    }
+
+    @GetMapping("/map")
+    public List<ChartPoint> map() {
+        List<ChartPoint> result = new ArrayList<>();
+        Map<String, Integer> map = new HashMap<>();
+
+        for (Entrance entrance : entranceRepository.findAll()) {
+            Integer total = map.get(entrance.getSport().getName());
+            if (total == null) {
+                map.put(entrance.getSport().getName(), 1);
+            } else {
+                map.replace(entrance.getSport().getName(), total + 1);
+            }
+        }
+
+        map.forEach((k, v) -> {
+            result.add(new ChartPoint(k,new Double(v)));
+        });
+
+        return result;
+
     }
 }
