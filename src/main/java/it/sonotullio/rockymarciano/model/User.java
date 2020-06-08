@@ -2,16 +2,15 @@ package it.sonotullio.rockymarciano.model;
 
 import lombok.Data;
 
-import javax.persistence.Entity;
-import javax.persistence.Id;
+import javax.persistence.*;
 
 @Data
 @Entity
-public class User {
+public class User extends WebClass {
 
     @Id
-    private String username;
+    private String cf;
     private String password;
-    private String name;
+    private Boolean admin;
 
 }

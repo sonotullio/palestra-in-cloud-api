@@ -4,8 +4,11 @@ import it.sonotullio.rockymarciano.model.User;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 
+import java.util.Optional;
+
 @Repository
 public interface UserRepository extends CrudRepository<User, String> {
 
-    User findByUsernameAndPassword(String username, String password);
+    Optional<User> findByCf(String cf);
+    User findByCfAndPassword(String cf, String password);
 }

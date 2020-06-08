@@ -8,7 +8,7 @@ import java.util.Date;
 
 @Data
 @Entity
-public class Entrance {
+public class Entrance extends WebClass {
 
     @Id
     @GeneratedValue(generator="system-uuid")

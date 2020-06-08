@@ -9,7 +9,7 @@ import java.util.Date;
 
 @Data
 @Entity
-public class Purchase {
+public class Purchase extends WebClass {
 
     @Id @GeneratedValue(generator="system-uuid")
     @GenericGenerator(name="system-uuid", strategy = "uuid")

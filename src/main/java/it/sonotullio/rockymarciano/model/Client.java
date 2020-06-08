@@ -13,7 +13,7 @@ import java.util.List;
 
 @Data
 @Entity
-public class Client {
+public class Client extends WebClass {
 
     @Id
     @GeneratedValue(strategy=GenerationType.AUTO)

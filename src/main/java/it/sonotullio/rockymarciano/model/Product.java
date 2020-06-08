@@ -19,7 +19,7 @@ import java.util.List;
         @JsonSubTypes.Type(value = Sport.class, name = Product.SPORT),
         @JsonSubTypes.Type(value = Merchandise.class, name = Product.MERCHANDISE),
 })
-public abstract class Product {
+public abstract class Product extends WebClass {
 
     @Id
     @GeneratedValue(generator="system-uuid")
