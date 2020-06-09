@@ -6,6 +6,7 @@ import lombok.Data;
 import org.apache.commons.lang3.time.DateUtils;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Date;
@@ -17,9 +18,17 @@ public class Client extends WebClass {
 
     @Id
     @GeneratedValue(strategy=GenerationType.AUTO)
-    private int id;
+    private Integer id;
 
+    @Column(unique = true)
+    @NotNull(message = "l'indirizzo e-mail e' un campo obbligatorio!")
     private String email;
+
+    @Column(unique = true)
+    @NotNull(message = "la password e' un campo obbligatorio!")
+    private String password;
+
+    private Boolean admin;
 
     private String name;
 

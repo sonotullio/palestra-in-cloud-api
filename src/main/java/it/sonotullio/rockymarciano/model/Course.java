@@ -35,7 +35,7 @@ public class Course {
     int prenotationMax;
 
     @OneToMany(cascade = CascadeType.ALL)
-    private List<User> users = new ArrayList<>();
+    private List<Client> clients = new ArrayList<>();
 
     public static Collection<Course> parse(Workbook workbook) throws ParseException {
         Collection<Course> courses = new ArrayList<>();
