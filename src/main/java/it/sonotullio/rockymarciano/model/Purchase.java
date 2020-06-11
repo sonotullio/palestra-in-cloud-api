@@ -25,6 +25,4 @@ public class Purchase extends WebClass {
     @ManyToOne
     private Product product;
 
-    private boolean paid;
-
 }

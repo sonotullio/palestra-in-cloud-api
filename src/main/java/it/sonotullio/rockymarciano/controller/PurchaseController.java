@@ -3,15 +3,18 @@ package it.sonotullio.rockymarciano.controller;
 import it.sonotullio.rockymarciano.model.ChartPoint;
 import it.sonotullio.rockymarciano.model.Purchase;
 import it.sonotullio.rockymarciano.repository.PurchaseRepository;
+import it.sonotullio.rockymarciano.utils.DateUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.text.ParseException;
+import java.time.Month;
 import java.util.*;
 import java.util.stream.Collectors;
 
-@CrossOrigin(origins = "*", allowedHeaders = "*")
 @RestController
 @RequestMapping(value = "/purchases")
+@CrossOrigin(origins = "*", allowedHeaders = "*")
 public class PurchaseController {
 
     @Autowired
@@ -35,11 +38,13 @@ public class PurchaseController {
     }
 
     @GetMapping
-    public List<Purchase> find(Optional<Integer> clientId, Optional<String> productId) {
+    public List<Purchase> find(Optional<Integer> clientId, Optional<String> productId, Optional<String> from, Optional<String> to) throws ParseException {
         if(clientId.isPresent()) {
             return purchaseRepository.findAllByClientId(clientId.get());
         } else if (productId.isPresent()){
             return purchaseRepository.findAllByProductId(productId.get());
+        } else if (from.isPresent() && to.isPresent()) {
+            return purchaseRepository.findAllByDateBetween(DateUtils.parse(from.get(), DateUtils.SYSTEM_FORMAT), DateUtils.parse(to.get(), DateUtils.SYSTEM_FORMAT));
         } else {
             return (List<Purchase>) purchaseRepository.findAll();
         }

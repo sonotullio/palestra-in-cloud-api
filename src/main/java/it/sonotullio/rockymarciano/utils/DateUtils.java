@@ -7,6 +7,8 @@ import java.util.Date;
 
 public class DateUtils {
 
+    public static final String SYSTEM_FORMAT = "yyyy-MM-dd";
+
     public static Date parse(String date, String format) throws ParseException {
 
         Date dateDate = new SimpleDateFormat(format).parse(date);

@@ -33,6 +33,11 @@ public class CoursesController {
         return courseRepository.save(course);
     }
 
+    @PutMapping("/{id}")
+    public Course update(@RequestBody Course course) {
+        return courseRepository.save(course);
+    }
+
     @GetMapping
     public Collection<Course> getAll(String date) throws ParseException {
         if (date != null) {
