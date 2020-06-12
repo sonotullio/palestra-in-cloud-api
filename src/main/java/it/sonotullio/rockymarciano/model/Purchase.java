@@ -5,6 +5,7 @@ import lombok.Data;
 import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 import java.util.Date;
 
 @Data
@@ -17,12 +18,15 @@ public class Purchase extends WebClass {
 
     @Temporal(TemporalType.DATE)
     @JsonFormat(shape=JsonFormat.Shape.STRING, pattern="yyyy-MM-dd", timezone = "UTC")
+    @NotNull(message = "La data e' un campo obbligatorio!")
     private Date date;
 
     @ManyToOne
+    @NotNull(message = "Il cliente e' un campo obbligatorio!")
     private Client client;
 
     @ManyToOne
+    @NotNull(message = "Il prodotto e' un campo obbligatorio!")
     private Product product;
 
 }

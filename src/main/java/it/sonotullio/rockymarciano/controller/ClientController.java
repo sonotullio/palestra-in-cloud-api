@@ -1,7 +1,6 @@
 package it.sonotullio.rockymarciano.controller;
 
 import it.sonotullio.rockymarciano.model.Client;
-import it.sonotullio.rockymarciano.model.User;
 import it.sonotullio.rockymarciano.repository.ClientRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -71,5 +70,10 @@ public class ClientController {
     @GetMapping
     public List<Client> findAll() {
         return (List<Client>) clientRepository.findAll();
+    }
+
+    @DeleteMapping("{id}")
+    public void delete(@PathVariable Integer id) {
+        clientRepository.deleteById(id);
     }
 }

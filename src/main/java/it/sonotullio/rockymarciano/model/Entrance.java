@@ -4,6 +4,7 @@ import lombok.Data;
 import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 import java.util.Date;
 
 @Data
@@ -16,12 +17,15 @@ public class Entrance extends WebClass {
     private String id;
 
     @Temporal(TemporalType.DATE)
+    @NotNull(message = "La data e' un campo obbligatorio!")
     private Date date;
 
     @ManyToOne
+    @NotNull(message = "Il cliente e' un campo obbligatorio!")
     private Client client;
 
     @ManyToOne
+    @NotNull(message = "lo sport e' un campo obbligatorio!")
     private Sport sport;
 
     private boolean deleted;

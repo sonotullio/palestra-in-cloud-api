@@ -1,7 +1,6 @@
 package it.sonotullio.rockymarciano.model;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import it.sonotullio.rockymarciano.utils.DateUtils;
 import lombok.Data;
 import org.apache.poi.ss.usermodel.Row;
@@ -10,6 +9,7 @@ import org.apache.poi.ss.usermodel.Workbook;
 import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 import java.text.ParseException;
 import java.util.*;
 
@@ -22,16 +22,19 @@ public class Course {
     @GenericGenerator(name="system-uuid", strategy = "uuid")
     String id;
 
-    @JsonFormat(shape=JsonFormat.Shape.STRING, pattern="yyyy-MM-dd", timezone="UTC")
     @Temporal(TemporalType.DATE)
+    @JsonFormat(shape=JsonFormat.Shape.STRING, pattern="yyyy-MM-dd", timezone="UTC")
     Date date;
 
+    @NotNull(message = "L'orario di inizio e' un campo obbligatorio!")
     Date startTime;
+
     Date finishTime;
 
+    @NotNull(message = "lo sport e' un campo obbligatorio!")
     String sport;
-    double duration = 1;
-    int prenotation = 0;
+
+    @NotNull(message = "Il numero di prenotazioni massimo e' un campo obbligatorio!")
     int prenotationMax;
 
     @ManyToMany(cascade = CascadeType.ALL)

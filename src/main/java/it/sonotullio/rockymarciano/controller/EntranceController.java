@@ -2,7 +2,6 @@ package it.sonotullio.rockymarciano.controller;
 
 import it.sonotullio.rockymarciano.model.ChartPoint;
 import it.sonotullio.rockymarciano.model.Entrance;
-import it.sonotullio.rockymarciano.model.Purchase;
 import it.sonotullio.rockymarciano.repository.EntranceRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;

@@ -7,6 +7,7 @@ import lombok.Data;
 import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -26,8 +27,12 @@ public abstract class Product extends WebClass {
     @GenericGenerator(name="system-uuid", strategy = "uuid")
     private String id;
 
+    @NotNull(message = "Il nome e' un campo obbligatorio!")
     private String name;
+
+    @NotNull(message = "Il prezzo e' un campo obbligatorio!")
     private Double price;
+
     private String description;
 
     @JsonIgnore

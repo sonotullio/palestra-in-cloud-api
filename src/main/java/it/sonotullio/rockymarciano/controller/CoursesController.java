@@ -1,7 +1,6 @@
 package it.sonotullio.rockymarciano.controller;
 
 import it.sonotullio.rockymarciano.model.Course;
-import it.sonotullio.rockymarciano.model.User;
 import it.sonotullio.rockymarciano.repository.CourseRepository;
 import it.sonotullio.rockymarciano.utils.DateUtils;
 import org.apache.poi.ss.usermodel.Sheet;

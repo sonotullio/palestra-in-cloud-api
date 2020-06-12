@@ -30,10 +30,13 @@ public class Client extends WebClass {
 
     private Boolean admin;
 
+    @NotNull(message = "Il nome e' un campo obbligatorio!")
     private String name;
 
+    @NotNull(message = "Il cognome e' un campo obbligatorio!")
     private String surname;
 
+    @NotNull(message = "Il codice fiscale e' un campo obbligatorio!")
     private String cf;
 
     private String phone;
@@ -49,7 +52,7 @@ public class Client extends WebClass {
     private String note;
 
     @Temporal(TemporalType.DATE)
-    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd", timezone = "UTC")
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd", timezone = "CET")
     private Date certificateExpirationDate;
 
     @Lob

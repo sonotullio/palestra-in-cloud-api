@@ -2,9 +2,12 @@ package it.sonotullio.rockymarciano.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Data;
-import org.hibernate.annotations.GenericGenerator;
 
-import javax.persistence.*;
+import javax.persistence.CascadeType;
+import javax.persistence.Entity;
+import javax.persistence.OneToMany;
+import javax.persistence.OrderBy;
+import javax.validation.constraints.NotNull;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -12,7 +15,10 @@ import java.util.List;
 @Entity
 public class Sport extends Product {
 
+    @NotNull(message = "Il limite di ingressi settimanali e' un campo obbligatorio!")
     private int maxEntrance;
+
+    @NotNull(message = "La durata dell'abbonamento e' un campo obbligatorio!")
     private int duration;
 
     @JsonIgnore
