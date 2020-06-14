@@ -71,7 +71,7 @@ public class Course {
                 calendar.set(Calendar.MONTH, date.getMonth());
                 calendar.set(Calendar.DATE, date.getDate() -1);
 
-                calendar.set(Calendar.HOUR, new Integer(hours));
+                calendar.set(Calendar.HOUR_OF_DAY, new Integer(hours));
                 calendar.set(Calendar.MINUTE, new Integer(minute));
 
                 Date startTime = calendar.getTime();
