@@ -70,4 +70,9 @@ public class PurchaseController {
 
     }
 
+    @DeleteMapping("/{id}")
+    public void delete(@PathVariable String id) {
+        purchaseRepository.deleteById(id);
+    }
+
 }

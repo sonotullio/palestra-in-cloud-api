@@ -15,6 +15,7 @@ import java.util.*;
 
 @Data
 @Entity
+@Table(uniqueConstraints = @UniqueConstraint(columnNames={"date", "start_time", "sport"}))
 public class Course {
 
     @Id
@@ -26,6 +27,7 @@ public class Course {
     @JsonFormat(shape=JsonFormat.Shape.STRING, pattern="yyyy-MM-dd", timezone="UTC")
     Date date;
 
+    @Column(name = "start_time")
     @NotNull(message = "L'orario di inizio e' un campo obbligatorio!")
     Date startTime;
 
@@ -67,16 +69,18 @@ public class Course {
                 String minuteFinish = timeFinish.split("\\.")[1];
 
                 Calendar calendar = Calendar.getInstance();
+                calendar.setTimeZone(TimeZone.getTimeZone("UTC"));
                 calendar.set(Calendar.YEAR, 1900 + date.getYear());
                 calendar.set(Calendar.MONTH, date.getMonth());
-                calendar.set(Calendar.DATE, date.getDate() -1);
+                calendar.set(Calendar.DATE, date.getDate());
+                calendar.set(Calendar.SECOND, 0);
 
                 calendar.set(Calendar.HOUR_OF_DAY, new Integer(hours));
                 calendar.set(Calendar.MINUTE, new Integer(minute));
 
                 Date startTime = calendar.getTime();
 
-                calendar.set(Calendar.HOUR, new Integer(hoursFinish));
+                calendar.set(Calendar.HOUR_OF_DAY, new Integer(hoursFinish));
                 calendar.set(Calendar.MINUTE, new Integer(minuteFinish));
 
                 Date finishTime = calendar.getTime();
@@ -85,7 +89,7 @@ public class Course {
                 int limit = (int) row.getCell(3).getNumericCellValue();
 
                 Course course = new Course();
-                course.setDate(calendar.getTime());
+                course.setDate(date);
                 course.setStartTime(startTime);
                 course.setFinishTime(finishTime);
                 course.setSport(sport);

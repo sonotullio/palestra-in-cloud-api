@@ -91,6 +91,10 @@ public class CoursesController {
         Collection<Course> courses = Course.parse(workbook);
 
         for (Course course : courses) {
+            Optional<Course> result = courseRepository.findByDateAndStartTimeAndSport(course.getDate(), course.getStartTime(), course.getSport());
+            if (result.isPresent()) {
+                course.setId(result.get().getId());
+            }
             courseRepository.save(course);
         }
 

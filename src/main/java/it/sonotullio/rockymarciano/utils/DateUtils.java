@@ -4,6 +4,7 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.TimeZone;
 
 public class DateUtils {
 
@@ -14,6 +15,7 @@ public class DateUtils {
         Date dateDate = new SimpleDateFormat(format).parse(date);
 
         Calendar calendar = Calendar.getInstance();
+        calendar.setTimeZone(TimeZone.getTimeZone("UTC"));
         calendar.set(Calendar.YEAR, 1900 + dateDate.getYear());
         calendar.set(Calendar.MONTH, dateDate.getMonth());
         calendar.set(Calendar.DATE, dateDate.getDate());
